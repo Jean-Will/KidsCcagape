@@ -23,31 +23,27 @@ interface TemporaryDrawerProps {
 }
 
 const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
-  const toggleDrawer = (newOpen: boolean) => {
-    return () => {
-      onClose();
-    };
+  const toggleDrawer = () => {
+    onClose();
   };
-  
 
   const handleItemClick = (route: string) => {
     window.open(route, '_blank'); // Abre o PDF em uma nova aba
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer}>
       <List>
         {[
           { text: 'Escala do mês', route: EscalaMes, icon: <CalendarMonthIcon /> },
           { text: 'Escala de Eventos', route: EscalaEventos, icon: <CalendarMonthIcon /> },
           { text: 'Lição da semana', route: AgapeKids, icon: <PictureAsPdfIcon /> },
           { text: 'Treinamentos', route: '/send-email', icon: <PlayCircleIcon /> },
-          
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton onClick={() => handleItemClick(item.route)}>
               <ListItemIcon>
-                {item.icon ? item.icon : <MailIcon />} {/* Use o ícone específico do item, caso exista */}
+                {item.icon ? item.icon : <MailIcon />}
               </ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
@@ -64,7 +60,7 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
           <ListItem key={item.text} disablePadding>
             <ListItemButton onClick={() => handleItemClick(item.route)}>
               <ListItemIcon>
-                {item.icon ? item.icon : <MailIcon />} {/* Use o ícone específico do item, caso exista */}
+                {item.icon ? item.icon : <MailIcon />}
               </ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
@@ -76,8 +72,8 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
 
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>Open drawer</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Button onClick={toggleDrawer}>Open drawer</Button>
+      <Drawer open={open} onClose={toggleDrawer}>
         {DrawerList}
       </Drawer>
     </div>
