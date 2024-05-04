@@ -1,0 +1,15 @@
+body{
+  margin: 0;
+  padding: 0;
+    background-color:rgb(19, 18, 18);
+}
+
+.app-container {
+    align-items:center;
+    justify-content: center;
+  }
+  
+  .button-download {
+    margin-top: 20px; /* Adicione um espaçamento superior ao botão de download */
+  }
+  
