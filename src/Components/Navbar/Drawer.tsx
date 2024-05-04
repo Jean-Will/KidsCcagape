@@ -23,9 +23,12 @@ interface TemporaryDrawerProps {
 }
 
 const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
-  const toggleDrawer = (newOpen: boolean) => () => {
-    onClose();
+  const toggleDrawer = (newOpen: boolean) => {
+    return () => {
+      onClose();
+    };
   };
+  
 
   const handleItemClick = (route: string) => {
     window.open(route, '_blank'); // Abre o PDF em uma nova aba
