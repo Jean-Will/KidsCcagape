@@ -8,7 +8,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import AgapeKids from "../../Pdf/CultoAgapeKids_0505.pdf";
@@ -16,6 +15,7 @@ import EscalaMes from "../../Pdf/Escala_Maio.pdf";
 import EscalaEventos from "../../Pdf/EscalaEventos_Maio.pdf";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 interface TemporaryDrawerProps {
   open: boolean;
@@ -38,7 +38,7 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
           { text: 'Escala do mês', route: EscalaMes, icon: <CalendarMonthIcon /> },
           { text: 'Escala de Eventos', route: EscalaEventos, icon: <CalendarMonthIcon /> },
           { text: 'Lição da semana', route: AgapeKids, icon: <PictureAsPdfIcon /> },
-          { text: 'Treinamentos', route: '/send-email', icon: <PlayCircleIcon /> },
+          { text: 'Treinamentos', route: 'https://www.youtube.com/playlist?list=PLuBDMGWXLvervvThHPsz5qwnFC0TBsIre', icon: <PlayCircleIcon /> },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton onClick={() => handleItemClick(item.route)}>
@@ -53,8 +53,8 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
       <Divider />
       <List>
         {[
-          { text: 'All mail', route: '/all-mail', icon: <InboxIcon /> },
-          { text: 'Trash', route: '/trash', icon: <MailIcon /> },
+          { text: 'Materiais 5 a 8', route: '/all-mail', icon: <InventoryIcon /> },
+          { text: 'Materiais ', route: '/trash', icon: <InventoryIcon/> },
           { text: 'Spam', route: '/spam', icon: <MailIcon /> },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
@@ -72,7 +72,7 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
 
   return (
     <div>
-      <Button onClick={toggleDrawer}>Open drawer</Button>
+      <Button onClick={toggleDrawer}></Button>
       <Drawer open={open} onClose={toggleDrawer}>
         {DrawerList}
       </Drawer>
