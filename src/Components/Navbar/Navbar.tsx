@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+    
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -136,7 +136,7 @@ export default function NavBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 1 new mails" color="inherit">
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={null} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -148,7 +148,7 @@ export default function NavBar() {
           aria-label="show 1 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={null} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
