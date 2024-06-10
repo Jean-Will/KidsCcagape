@@ -17,6 +17,9 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import InventoryIcon from '@mui/icons-material/Inventory';
 
+
+
+
 interface TemporaryDrawerProps {
   open: boolean;
   onClose: () => void;
@@ -53,7 +56,7 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ open, onClose }) => {
       <Divider />
       <List>
         {[
-          { text: 'Materiais 5 a 8', route: '/all-mail', icon: <InventoryIcon /> },
+          { text: 'Materiais 5 a 8', route: "./" , icon: <InventoryIcon /> },
           { text: 'Materiais ', route: '/trash', icon: <InventoryIcon/> },
           { text: 'Spam', route: '/spam', icon: <MailIcon /> },
         ].map((item) => (

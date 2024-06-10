@@ -1,15 +1,15 @@
-body{
+ body{
   margin: 0;
   padding: 0;
-    background-color:rgb(197, 195, 195);
+  background-color:#f2f2f2 ;
+  
+
 }
+
+
 
 .app-container {
     align-items:center;
     justify-content: center;
-  }
-  
-  .button-download {
-    margin-top: 20px;
   }
   
