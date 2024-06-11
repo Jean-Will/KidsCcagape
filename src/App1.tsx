@@ -1,22 +1,37 @@
-import { useRef } from 'react';
-import Form from '../src/Components/Form/Form';
-import GridUsers from '../src/Components/Grid/GridUsers';
+import  { useRef, useState } from 'react';
+import NavBar from './Components/Navbar/Navbar.tsx';
+import Form from '../src/Components/Form/Form.tsx';
+import GridUsers from './Components/Grid/GridUsers.tsx';
 
-const App = () => {
+
+interface User {
+  id: number;
+  nome: string;
+  email: string;
+  data_nascimento : string;
+  fone: string;
+}
+
+
+const App1 = () => {
   const gridUsersRef = useRef<{ fetchUsers: () => void }>(null);
+  const [userToEdit , setUserToEdit] = useState<User | null>(null);
 
   const fetchUsers = () => {
-    if (gridUsersRef.current) {
-      gridUsersRef.current.fetchUsers();
-    }
+    gridUsersRef.current?.fetchUsers();
+  };
+
+  const handleEdiUSer = (user : User) => {
+    setUserToEdit(user);
   };
 
   return (
-    <div>
-      <Form fetchUsers={fetchUsers} />
-      <GridUsers ref={gridUsersRef} />
-    </div>
+    <>
+      <NavBar />
+      <Form fetchUsers={fetchUsers} userToEdit={userToEdit} />
+      <GridUsers ref={gridUsersRef} onEditUser={handleEdiUSer}/>
+    </>
   );
 };
 
-export default App;
+export default App1;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import styled from "styled-components";
 import axios from "axios";
@@ -21,15 +21,32 @@ const FormStyled = styled.div`
 
 interface FormProps {
   fetchUsers: () => void;
+  userToEdit?: User | null;
 }
 
-const Form: React.FC<FormProps> = ({ fetchUsers }) => {
-  const [formData, setFormData] = useState({
+interface User {
+  id?: number;
+  nome: string;
+  data_nascimento: string;
+  email: string;
+  fone: string;
+}
+
+const Form: React.FC<FormProps> = ({ fetchUsers, userToEdit }) => {
+  const [formData, setFormData] = useState<User>({
     nome: "",
     data_nascimento: "",
     email: "",
     fone: ""
   });
+
+  useEffect(() => {
+    if (userToEdit) {
+      setFormData(userToEdit);
+    } else {
+      setFormData({ nome: "", data_nascimento: "", email: "", fone: "" });
+    }
+  }, [userToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,14 +58,25 @@ const Form: React.FC<FormProps> = ({ fetchUsers }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/api/users", formData)
-      .then((response) => {
-        console.log("Dados enviados com sucesso:", response.data);
-        fetchUsers(); // Atualiza a lista de usuários
-      })
-      .catch((error) => {
-        console.error("Erro ao enviar os dados:", error);
-      });
+    if (formData.id) {
+      axios.put(`http://localhost:3000/api/users/${formData.id}`, formData)
+        .then((response) => {
+          console.log("Dados atualizados com sucesso:", response.data);
+          fetchUsers(); // Atualiza a lista de usuários
+        })
+        .catch((error) => {
+          console.error("Erro ao atualizar os dados:", error);
+        });
+    } else {
+      axios.post("http://localhost:3000/api/users", formData)
+        .then((response) => {
+          console.log("Dados enviados com sucesso:", response.data);
+          fetchUsers(); // Atualiza a lista de usuários
+        })
+        .catch((error) => {
+          console.error("Erro ao enviar os dados:", error);
+        });
+    }
   };
 
   return (
