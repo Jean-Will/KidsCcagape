@@ -1,4 +1,4 @@
-import  { useEffect, useState, useImperativeHandle, forwardRef } from "react";
+import { useEffect, useState, useImperativeHandle, forwardRef } from "react";
 import { Table, TableHead, TableRow, TableCell, TableBody, Paper, IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,9 +26,14 @@ interface User {
   nome: string;
   email: string;
   data_nascimento: string;
+  fone: string;
 }
 
-const GridUsers = forwardRef((props, ref) => {
+interface GridUsersProps {
+  onEditUser: (user: User) => void;
+}
+
+const GridUsers = forwardRef(({ onEditUser }: GridUsersProps, ref) => {
   const [users, setUsers] = useState<User[]>([]);
 
   const fetchUsers = () => {
@@ -49,18 +54,6 @@ const GridUsers = forwardRef((props, ref) => {
     fetchUsers();
   }, []);
 
-
-  const handleEdit = (id: number) =>{
-    axios.put(`http://localhost:3000/api/users/${id}`)
-    .then(response =>{
-      fetchUsers();
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error("Erro ao editar usuário !", error);
-    });
-  };
-   
   const handleDelete = (id: number) => {
     axios.delete(`http://localhost:3000/api/users/${id}`)
       .then(response => {
@@ -80,7 +73,7 @@ const GridUsers = forwardRef((props, ref) => {
             <TableCell>Nome</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>Data de nascimento</TableCell>
-            
+            <TableCell align="center">Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -90,7 +83,7 @@ const GridUsers = forwardRef((props, ref) => {
               <TdStyled>{user.email}</TdStyled>
               <TdStyled>{user.data_nascimento}</TdStyled>
               <TdStyled align="center">
-                <IconButton onClick={() => handleEdit(user.id)}>
+                <IconButton onClick={() => onEditUser(user)}>
                   <EditIcon color="primary" />
                 </IconButton>
                 <IconButton onClick={() => handleDelete(user.id)}>

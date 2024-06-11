@@ -32,13 +32,14 @@ export const deleteUser = (req, res) => {
     });
 };
 
-export const updateUser =(req, res) =>{
+export const updateUser = (req, res) => {
     const { id } = req.params;
-    const sql ="PUT FROM usuarios WHERE id = ?";
-    db.query(sql, [id], (err, result) =>{
+    const { nome, data_nascimento, email, fone } = req.body;
+    const sql = "UPDATE usuarios SET nome = ?, data_nascimento = ?, email = ?, fone = ? WHERE id = ?";
+    db.query(sql, [nome, data_nascimento, email, fone, id], (err, result) => {
         if (err) {
-            return res.status(500).json({error: err.message});
+            return res.status(500).json({ error: err.message });
         }
-        res.json({message:"Usuário editado com sucesso " });
+        res.json({ message: "Usuário editado com sucesso" });
     });
 };
